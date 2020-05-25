@@ -1,0 +1,49 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Commentaires index{% endblock %}
+
+{% block body %}
+    
+    <div class="container-fluid mx-auto">
+        <div class="overlay mx-auto"></div>
+            <div class="row mx-auto" >
+                <div class="col-md-8 mt-2 mx-auto ">
+                    {% for commentaire in commentaires %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            
+                            <p class="card-text text-muted h7"> {{  commentaire.email }} | {{ commentaire.dateCreation ? commentaire.dateCreation|date('d-m-Y') : '' }} | 
+                                    <p class="card-text">{{commentaire.contenu | slice(1,100) }}...
+                                    <a href="{{ path('commentaires_show', {'id': commentaire.id}) }}" class="btn btn-primary">Lire la suite !!</a></p>
+                        </div>
+                        
+                    </div>
+         
+
+                    {% else %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h2 class="card-title">Aucun commentaire pour l'instant</h2>
+                        </div>
+                    </div>
+                        
+                    {% endfor %} 
+
+                    {% if app.user.email is defined %}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col text-center">
+                                <a href="{{ path('commentaires_new') }}" class="btn btn-primary" >Ajouter un commentaire</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+            </div>
+        
+    </div>
+
+
+    
+    
+    
+{% endblock %}

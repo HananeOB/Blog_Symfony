@@ -1,0 +1,10 @@
+index:
+   path: /
+   controller: App\Controller\ArticlesController::index
+
+homepage:
+    path: /articles
+    #controller: App\Controller\BlogController::index
+admin:
+    path: /admin
+    controller: App\Controller\BlogController::admin

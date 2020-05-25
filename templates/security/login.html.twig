@@ -1,0 +1,71 @@
+{% extends 'base3.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+<header class="masthead">
+        <div class="overlay"></div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class=" col-md-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <a ><h3 class=" site-heading my-4 mt-3 text-white text-center" > Welcome to My first Blog using Symfony </h3></a>
+                        <p class="text-light text-center">I hope you like it ^^  ..! 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <p>
+        <div class="container center" >
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="post">
+                                {% if error %}
+                                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                {% endif %}
+
+                                {% if app.user %}
+                                    <div class="container center">
+                                        <p>You are logged in as {{ app.user.username }}</p>
+                                        <a href="{{ path('app_logout') }}" class = "btn btn-primary">Logout</a>
+                                    </div>
+                                {% else %}
+                                    
+                                        <p>
+                                            <label for="inputEmail">Email</label>
+                                            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                                        </p>
+                                        <p>
+                                            <label for="inputPassword">Password</label>
+                                            <input type="password" name="password" id="inputPassword" class="form-control" required>
+                                        </p>
+                                        <input type="hidden" name="_csrf_token"
+                                            value="{{ csrf_token('authenticate') }}"
+                                        >
+
+                                        <button class="btn  btn-primary" type="submit">
+                                            S'identifier
+                                        </button>
+                            
+
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+
+    </p>
+
+
+    
+{% endblock %}

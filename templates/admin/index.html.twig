@@ -1,0 +1,70 @@
+
+{% extends 'base_admin.html.twig' %}
+
+
+{% block title %}Admin. | {{ parent() }}{% endblock %}
+{% block content %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+    <div class="admin-page">
+        <br/>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <h5>Articles</h5>
+                    <table>
+                        <tr>
+                            <th>#</th>
+                            <th>Titre</th>
+                            <th>Date de publication</th>
+                            <th>Date de modification</th>
+                            
+                        </tr>
+                        {% set i = 1 %}
+                        {% for article in articles %}
+                            <tr>
+                                <td>{{ i }}</td>
+                                <td><a href="{{ path('articles_show', {'id': article.id}) }}" target="_blank">{{ article.titre }}</a></td>
+                                <td>{{ article.dateCreation|date('d/m/Y') }}</td>
+                                <td>{{ article.dateMaj|date('d/m/Y') }}</td>
+                
+                            </tr>
+                            {% set i = i+1 %}
+ {% endfor %}
+ </table>
+ </div>
+ </div>
+ <div class="row">
+ <div class="col s12 m-t-30">
+ <h5>Utilisateurs</h5>
+ <table>
+ <tr>
+ <th>#</th>
+ <th>Adresse email</th>
+ <th>Roles</th>
+ <th>Actions</th>
+ </tr>
+ {% set i = 1 %}
+ {% for user in users %}
+ <tr>
+ <td>{{ i }}</td>
+ <td>{{ user.email }}</td>
+ <td>
+ <span class="badge blue">
+ admin.
+ </span>
+ </td>
+ <td>
+ <a href=""><i class="material-icons red-text">delete</i></a>
+ </td>
+ </tr>
+ {% set i = i+1 %}
+ {% endfor %}
+ </table>
+ </div>
+ </div>
+ </div>
+ </div>
+{% endblock %}

@@ -1,0 +1,73 @@
+
+{% extends 'base2.html.twig' %}
+
+{% block title %}Articles index{% endblock %}
+
+{% block body %}   
+        
+
+    <header class="masthead">
+        <div class="overlay"></div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class=" col-md-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <a ><h3 class=" site-heading my-4 mt-3 text-white text-center" > Welcome to My first Blog using Symfony </h3></a>
+                        <p class="text-light text-center">I hope you like it ^^  ..! 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container-fluid mx-auto">
+        <div class="overlay mx-auto"></div>
+            <div class="row mx-auto" >
+                <!-- Blog Entries Column -->
+                <div class="col-md-8 mt-2 mx-auto ">
+                    {% for article in articles %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ article.Titre }}</h2>
+                            <p class="card-text text-muted h7"> {{ article.user.email }} | {{ article.dateCreation ? article.dateCreation|date('d-m-Y') : '' }} | 
+                            {% if article.commentaires | length ==0 %}<a href= "{{ path('commentaires_index') }}"> no comment </a>
+                            {% else %} <a href= "{{ path('commentaires_index') }}">  {{article.commentaires | length }} comments</a>
+                            {% endif %} </p>
+                            <p class="card-text">{{article.contenu | slice(1,100) }}...
+                            <a href="{{ path('articles_show', {'id': article.id}) }}" class="btn btn-primary">Lire la suite !!</a></p>
+                            <p > <img  class="img-fluid" src="{{ asset('uploads/brochures/'~ article.image ) }}"></p>
+                        </div>
+                        
+                    </div>
+         
+
+                    {% else %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h2 class="card-title">Vous n'avez pas d'articles pour l'instant</h2>
+                            <a href="{{ path('articles_new') }}" class="btn btn-primary" >Créez votre premier article!!</a>
+                            {# <p > <img src="{{ asset('img/home-bg.jpg') }}" class="img-fluid" ></p> #}
+                        </div>
+                    </div>
+                        
+                    {% endfor %} 
+
+                    {# <a href="{{ path('articles_new') }}" class="btn btn-primary" >Create new</a> #}
+                    {% if app.user.email is defined %}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col text-center">
+                                <a href="{{ path('articles_new') }}" class="btn btn-primary" >Créer un nouvel article</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+            </div>
+        
+    </div>
+   
+
+
+    
+{% endblock %}
